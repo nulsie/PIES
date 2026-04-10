@@ -1,0 +1,164 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIES - Official User Manual and Policy Whitepaper</title>
+    <script src="3.4.17"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Geneva', 'Arial', 'sans-serif'],
+                        mono: ['Monaco', 'Courier New', 'monospace'],
+                    },
+                    colors: {
+                        'mac-blue': '#0000CC',
+                        'mac-grey-light': '#DDDDDD',
+                        'mac-grey-mid': '#CCCCCC',
+                        'mac-dark': '#000000',
+                        'mac-red': '#CC3300',
+                        'swiss-red': '#D52B1E',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #DDDDDD; font-size: 14px; color: #000; }
+        .mac-panel { background-color: #FFFFFF; border: 1px solid #000000; box-shadow: 2px 2px 0 0 #3a3a3a; }
+        .mac-title-bar { background-color: #D52B1E; border-bottom: 1px solid #000000; color: #FFFFFF; font-weight: bold; padding: 6px 10px; }
+        .mac-section { background-color: #EEEEEE; border: 1px solid #999999; padding: 15px; margin-bottom: 20px; }
+        .mac-button { border: 1px solid #000000; background-color: #CCCCCC; font-weight: bold; padding: 4px 12px; border-top-color: #FFFFFF; border-left-color: #FFFFFF; }
+        h1, h2, h3 { color: #000; font-weight: bold; border-bottom: 1px solid #000; margin-bottom: 10px; }
+        .highlight { color: #D52B1E; font-weight: bold; }
+        .blue-text { color: #0000CC; }
+        .green-text {color: #0B6623; font-weight: bold;}
+        .salt-text {color: #964B00 ; font-weight: bold;}
+        .pbkdf-text {color: #BC2025 ; font-weight: bold;}
+        .mono-text {color: grey ;  font-style: monospace;}
+        .duress-text {color: #EED202 ; font-weight: bold;}
+        .black-text{color:#000000 ; font-weight: bold;}
+        .solid-blue{color: #0055A4 ; font-weight: bold;}
+    </style>
+</head>
+<body class="font-sans p-4 sm:p-10 flex justify-center">
+
+    <div class="w-full max-w-4xl mac-panel">
+        <div class="mac-title-bar flex justify-between items-center">
+           
+            <div class="flex space-x-1">
+                
+            </div>
+        </div>
+
+        <div class="p-6 sm:p-10">
+            <header class="mb-8 text-center">
+                <h1 class="text-3xl font-bold tracking-tighter">PIES</h1>
+                <p class="text-sm italic">Pretty Isolated Encrypted System</p>
+                <div class="mt-4 flex justify-center space-x-4 text-xs font-bold">
+                    <span class="px-2 py-1 bg-mac-grey-mid border border-black">By nulsie</span>
+                    <span class="px-2 py-1 bg-mac-grey-mid border border-black">LICENSE: GNU GPL v3</span>
+                </div>
+            </header>
+
+            <section class="mac-section">
+                <h2><b>1. PURPOSE & TARGETED AUDIENCE</b></h2>
+                <p class="mb-2">PIES is a cryptographic environment designed for users who require total digital sovereignty.<p><b>Expected Users:</b></p>
+                <ul class="list-disc ml-6 space-y-1">
+                    <li><span class="font-bold">Privacy Conscious Netizens:</span> Requiring storage with no network trail.</li>
+                    <li><span class="font-bold">Journalists:</span> Operating in hostile environments needing "stealth" retro-styled tools.</li>
+                    <li><span class="font-bold">Sovereignty Advocates:</span> Who reject SaaS models in favor of 100% local control.</li>
+                    <li><span class="font-bold">High-Net-Worth Individuals: </span>Clients seeking a digital counterpart to a physical Swiss vault for sensitive logs or documentation.</li>
+                </ul>
+            </section>
+            
+            <section class="mac-section">
+                <h2><b>2. PRIVACY AND SECURITY</b></h2>
+                                <h3 class="text-sm border-none">A. TECHNICAL INACCESSIBILITY AND ZERO-ACCESS POLICY</h3>
+                                  <ul class="list-disc ml-6 space-y-2">
+                  <li><span class="font-bold">Total Data Inaccessibility: </span>PIES is architecturally a "Zero-Knowledge" system. Because the application operates entirely within your local browser's memory and storage, I do not—and technically cannot—have the data.</li>
+                  <li><span class="font-bold">No Data Possession: </span>There is no central server, cloud database, or "PIES backend" where your files could be stored. Your Account ID, Passkey, and depository items remain exclusively on your own device; I have nothing to use, share, or lose.</li>           <li><span class="font-bold">Zero-Network Trail: </span>The application code contains zero network-bound instructions (no fetch or XMLHttpRequest calls). This ensures that your usage generates no digital metadata, making it impossible for the developers or ISP-level surveillance to monitor your activity.</li>
+                 </ul>
+                 <br>
+                                 <h3 class="text-sm border-none">B. CRYPTOGRAPHIC AND FORENSIC FEATURES</h3>
+                                  <ul class="list-disc ml-6 space-y-2">
+                     <li><span class="font-bold">Sovereign Encryption: </span>All data is locally encrypted using <span class="highlight">AES-256</span>, while credentials are secured via one-way <span class="green-text">SHA-256</span> hashing with <span class="salt-text">Salt</span> and <span class="pbkdf-text">PBKDF2(100k)</span> iterating system.</li>
+                     <li><span class="font-bold">Volatile RAM Protection: </span>To protect against physical device seizure, PIES stores your active <span class="mono-text">"Vault Key"</span> (the unhashed passkey) only in volatile RAM. Logging out or refreshing the browser instantly purges the key, ensuring that no readable data remains in the computer's memory.</li>
+                     <li><span class="font-bold">The Duress Passkey: </span>The <span class="black-text"> Duress</span><span class="duress-text">Passkey</span> acts as a hidden emergency kill-switch. It is a secondary password set up during registration. When used, the app identifies the specific duress hash. It instantly wipes the document array from local storage. This irreversibly deletes all encrypted files and titles. The process is silent and happens during the login flow. The user is then logged into a completely empty vault. It provides plausible deniability by hiding all evidence. Your data is destroyed to keep it from being discovered.</li>
+                     <li><span class="font-bold">No Backdoor Infrastructure: </span>By design, PIES omits a "Forgot Password" or account recovery feature. This ensures that no third party, including the developers, can ever bypass your encryption to access your files.</li>
+                     </ul>
+                     <br>
+
+                  </section>
+
+            <section class="mac-section">
+                <h2><b>3. TECHNICAL BLUEPRINT: ZERO-KNOWLEDGE</b></h2>
+                <p>The entire PIES application is contained within a single HTML file. This architecture is a deliberate security choice known as a Static Local Environment.</p>
+                <h3 class="text-sm border-none mt-2">A. LOCAL-ONLY EXECUTION</h3>
+                <p class="mb-4">PIES operates as a single-file static HTML environment. It generates <span class="highlight">zero network traffic</span>, ensuring ISPs cannot detect when the vault is accessed.</p>
+                
+                <h3 class="text-sm border-none">B. CRYPTOGRAPHIC STANDARDS</h3>
+                <ul class="list-disc ml-6 mb-4">
+                    <li><span class="font-bold">AES-256:</span> Every character entered is transformed into ciphertext using the user's Passkey.</li>
+                    <li><span class="font-bold">SHA-256 Hashing:</span> Credentials are protected by one-way hashing; the original password is never stored in readable form.</li>
+                    <li><span class="font-bold">Salt in Hashing: </span>Salting is a security technique that adds a unique string of random data—a "salt"—to your passkey before it is hashed and stored. In this application, a unique salt is generated for every user during registration, ensuring that even if two people use the exact same passkey, their stored hashes and encryption keys will look completely different. This process prevents attackers from using "Rainbow Tables" (pre-computed lists of common passwords) to crack your vault. By forcing the system to calculate a unique result for every single account, salting ensures that an attacker cannot use work done on one account to compromise another.</li>
+                    <li><span class="font-bold">PBKDF2 100k Iterations Layering with Encryption: </span>PBKDF2 with 100k iterations is the vault's core security engine. It transforms your simple passkey into a high-strength encryption key. The process uses a unique "salt" to prevent pre-computed crack attacks. By running the hashing algorithm 100,000 times, it adds a massive time cost. This "computational work" makes brute-force guessing extremely slow and difficult. Even powerful computers struggle to test many passwords against this barrier. It ensures that your data remains locked even if the file is stolen. The 100k count is a standard balance between high security and speed. This turns a human password into a machine-grade cryptographic shield.</li>
+                </ul>
+
+                <h3 class="text-sm border-none">C. VOLATILE RAM PROTECTION</h3>
+                <p>The unhashed "Vault Key" exists only in the device's <span class="blue-text font-bold">RAM</span> while the session is active. Refreshing the page or clicking "Logout & Lock" instantly purges the key from memory.</p>
+            </section>
+
+            
+
+            <section class="mac-section bg-yellow-50 border-mac-blue">
+                <h2 class="text-mac-blue">5. OPERATIONAL PROCEDURES: THE NEED OF THE PHYSICAL "AIR GAP" PROCEDURE</h2>
+                <p class="mb-4 font-bold text-mac-red text-xs">WARNING: LOSS OF PASSKEY RESULTS IN PERMANENT DATA DESTRUCTION.</p>
+                  <h3><b>PIES deliberately omits a "Forgot Password" feature because any recovery mechanism is a security vulnerability.</b></h3>
+                  <h2><b>The Official "Physical Storage" Protocol for Storing Your PIES Passkey: </b></h2>
+                  <ul class="list-disc ml-6 space-y-2">
+                  <li><span class="font-bold"> Avoid Digital Password Managers: </span>Do not store your PIES Passkey in any cloud-based or digital password manager.</li>
+                  <li><span class="font-bold">Physical Inscription: </span>Write your Account ID and Passkey on a durable physical medium.</li>
+                  <li><span class="font-bold">Metal Engraving: </span>For maximum longevity, engrave your credentials on a stainless steel or titanium plate to ensure the key survives fire, flood, or magnetic interference. Or you could simply use a laminated fireproof paper.</li>
+                  <li><span class="font-bold">Vault Storage: </span>Place this physical key in a fireproof locker or physical safe of your choosing.</li>
+                  </ul>
+            </section>
+
+            <section class="mac-section">
+                <h2><b>6. SAFE BROWSER PROTOCOLS</b></h2>
+                <p>While the PIES protocol is secure, the browser environment can be a weak point. Users are advised to the following: </p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li><span class="font-bold">Always Use Incognito Mode:</span> Prevents the browser from saving cached fragments of unencrypted data.</li>
+                    <li><span class="font-bold">Try Using Privacy Browsers:</span> Use LibreWolf, Mullvad, or Brave (Max Shields).</li>
+                    <li><span class="font-bold">Extension Audit:</span> Disable all extensions to prevent screen-scraping or keylogging.</li>
+                </ul>
+            </section>
+            
+            <section class="mac-section">
+                <h2><b>7. How to Use PIES</b></h2>
+                <ul>
+                                    <ul class="list-disc ml-6 space-y-2">
+
+                    <li><span class="font-bold">Prepare a Secure Browser Environment: </span>Before launching the file, ensure you are using a privacy-focused browser like LibreWolf, Mullvad, or Brave(optional for civillian users). It is mandatory for high-risk users to operate in Incognito/Private Mode and to use a privacy focused browser to prevent the browser from saving cached fragments of unencrypted data, and all extensions should be disabled to mitigate keylogging risks.</li>
+                    <li><span class="font-bold">Initialize the Secure Terminal: </span>Open the PIES.html file in your browser. The system requires a 10-second initialization period, during which you will see a loading bar. This delay is a deliberate protocol to ensure the secure data deposit environment is fully isolated and ready before any decryption occurs.</li>
+                    <li><span class="font-bold">Register with Permanent Credentials: </span>Select the REGISTER tab to create your account by entering a unique Account ID and a complex Passkey. Note that PIES utilizes SHA-256 hashing for these credentials; because there is no central server, there is no "Forgot Password" feature. If you lose these credentials, your data is mathematically destroyed and unrecoverable.</li>
+                    <li><span class="font-bold">Execute the Physical "Air-Gap" Protocol: </span>Immediately after registration, you must move your credentials to a physical medium. The manual mandates Physical Inscription—writing your ID and Passkey down—and recommends Metal Engraving on stainless steel or titanium to survive environmental disasters. Store this physical key in a fireproof vault or safe; never save it in a digital or cloud-based password manager.</li>
+                    <li><span class="font-bold">Manage and Encrypt Depository Items: </span>Once logged in, you can create a NEW ITEM or UPLOAD existing text files. Every character you type is transformed into AES-256 ciphertext in real-time. The application features a 10-second "Auto-save heartbeat" that automatically encrypts and persists your data to the local browser storage, but you can also manually click EXECUTE SAVE (PERSIST) at any time.</li>
+                    <li><span class="font-bold">Securely Terminate the Session: </span>When your work is complete, click LOGOUT & LOCK or simply refresh the browser page. This triggers the Volatile RAM Purge, which instantly deletes the unhashed decryption key from your computer’s memory. This anti-forensic measure ensures that no readable data remains in the RAM if the device is seized or inspected after the session.</li>
+                </ul>
+            </section>
+            
+            
+
+            <footer class="mt-10 pt-4 border-t border-black text-xs flex justify-between items-end">
+                <div>
+                    <p class="font-bold">By using PIES, you are the only person on Earth with the keys to this safe.</p>
+                </div>
+                </footer>
+        </div>
+    </div>
+
+</body>
+</html>
